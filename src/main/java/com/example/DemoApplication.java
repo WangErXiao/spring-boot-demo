@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.factory.MyFactoryBean;
 import com.example.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,13 @@ public class DemoApplication {
 	@Autowired
 	private HelloService helloService;
 
+
+	@Autowired
+	private MyFactoryBean factory;
+
+	@Autowired
+	private People people;
+
 	@RequestMapping("/")
 	@ResponseBody
 	People home(){
@@ -30,5 +38,16 @@ public class DemoApplication {
 		p.setName("souche");
 		p.setMsg(helloService.hello(p.getName()));
 		return p;
+	}
+	@RequestMapping("/get")
+	@ResponseBody
+	People get() throws Exception {
+		return factory.getObject();
+	}
+
+	@RequestMapping("/get1")
+	@ResponseBody
+	People get1() throws Exception {
+		return people;
 	}
 }
